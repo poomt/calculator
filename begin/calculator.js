@@ -40,7 +40,7 @@ function handleBUttonClick(event) {
                 }
                 break;
             case '+':
-            case '-':
+            case '−':
             case '×':
             case '÷':
                 handleOperation(input)
@@ -67,7 +67,7 @@ function handleOperation(input) {
 function calculate(operator, a, b) {
     switch (operator) {
         case '+': return a + b;
-        case '-': return a - b;
+        case '−': return a - b;
         case '×': return a * b;
         case '÷': return a / b;
     }
