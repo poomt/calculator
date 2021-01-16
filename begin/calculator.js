@@ -3,6 +3,7 @@ let buffer = "0"
 let screen;
 let previousOperations = ''
 let previousResult = 0
+let equalsBuffer = ''
 
 function init() {
     screen = document.querySelector(".screen")
@@ -24,12 +25,17 @@ function handleBUttonClick(event) {
         }
 
     } else {
+        equalsBuffer = ''
         switch (input) {
             case 'C':
                 console.log("c button clikced");
                 buffer = "0"
                 screenValue = buffer
+                buffer = "0"
+                previousOperations = ''
+                previousResult = 0
                 break;
+
             case '←':
                 if (buffer.length === 1) {
                     buffer = "0"
@@ -39,15 +45,31 @@ function handleBUttonClick(event) {
                     screenValue = buffer
                 }
                 break;
+
+            case '=':
+                equalsBuffer = '= '
+                if (previousOperations === '') {
+                    previousResult = parseFloat(screenValue)
+                } else {
+                    console.log(previousResult, screenValue)
+                    previousResult = calculate(previousOperations, previousResult, parseFloat(screenValue))
+                    buffer = previousResult
+                    screenValue = buffer
+                }
+                buffer = "0"
+                previousOperations = ""
+                break;
+
             case '+':
             case '−':
             case '×':
             case '÷':
                 handleOperation(input)
                 break;
+
         }
     }
-    screen.innerText = screenValue
+    screen.innerText = equalsBuffer + screenValue
 
 }
 
